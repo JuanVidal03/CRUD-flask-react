@@ -1,5 +1,9 @@
+# uitls
+from utils.esquema_actualizar_persona import esquema_actualizar_persona
+from utils.encontrar_posicion import posicion_persona_actualizar
 # importar e inicializar flask
 from flask import Flask, request
+from flask import Response
 app = Flask(__name__)
 
 # aqui se va a almacenar la data
@@ -21,17 +25,41 @@ def crear_persona():
             # verificando que no hayan personas con cedulas repetidas
             for person in lista_personas:
                 if person['cedula'] == persona['cedula']:
-                    return f'Persona con el numero de cedula: {persona['cedula']} ya existe!'
+                    return Response(f'Persona con el numero de cedula: {persona['cedula']} ya existe!', status=409)
             else:
                 lista_personas.append(persona)
-                return 'Persona agregada con exito!'
+                return Response('Persona agregada con exito!', status=202)
         else:
             lista_personas.append(persona)
-            return 'Persona agregada con exito!'
+            return Response('Persona agregada con exito!', status=202)
     
     # en caso de no poder crear la persona
     except Exception as error:
-        return f'Error al crear la persona: {error}'
+        return Response(f'Error al crear la persona: {error}', status=400)
+
+# actualizar persona
+@app.route('/persona/<cedula>', methods=['PUT'])
+def actualizar_persona(cedula):
+    # creando la persona
+    try:
+        
+        # nuevos datos de la persona
+        datos_actualizar = request.json
+        nombre, mail, telefono = datos_actualizar.values()
+        # posicion de la persona a actualizar
+        posicion_persona = posicion_persona_actualizar(lista_personas, cedula)
+        
+        # encontrando la persona y la actualizamos en el array donde estan las personas
+        for person in lista_personas:
+            if person["cedula"] == cedula:
+                actualizar_persona = esquema_actualizar_persona(cedula, nombre, mail, telefono)
+                lista_personas[posicion_persona] = actualizar_persona
+        
+        return Response(f'Persona con cedula: {cedula}, fue actualizada con exito!', status=202)
+        
+    # error al actualizar persona
+    except Exception as error:
+        return Response(f'Error al actualizar la persona: {error}', status=400)
 
 
 # corriendo server
