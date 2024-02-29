@@ -1,11 +1,13 @@
 # uitls
 from utils.esquema_actualizar_persona import esquema_actualizar_persona
 from utils.encontrar_posicion import posicion_persona_actualizar
-# importar e inicializar flask
+# importar e inicializar flask y cors
 from flask import Flask, request
 from flask import Response
+from flask_cors import CORS
 app = Flask(__name__)
-
+# permite que este backend pueda ser utilizado en otros dominios
+cors = CORS(app)
 # aqui se va a almacenar la data
 lista_personas = []
 
