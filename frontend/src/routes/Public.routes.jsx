@@ -2,13 +2,16 @@
 import {  Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 // importar paginas
-const Personas = lazy(() => import('../pages/Personas.jsx'));
+const AgregarPersonas = lazy(() => import('../pages/AgregarPersonas.jsx'));
+const ListarPersonas = lazy(() => import('../pages/ListarPersonas.jsx'))
 
 const PublicRoutes = () => {
     return (
         <Suspense fallback='Cargando...'>
             <Routes>
-                <Route path="/personas" element={<Personas/>}/>
+                <Route path="/" element={<AgregarPersonas/>}/>
+                <Route path="/agregar-persona" element={<AgregarPersonas/>}/>
+                <Route path="/personas-registradas" element={<ListarPersonas/>}/>
             </Routes>
         </Suspense>
     );
