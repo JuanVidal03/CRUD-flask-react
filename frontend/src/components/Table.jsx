@@ -1,7 +1,7 @@
 // dependencias
 import { useState, useEffect } from "react";
 // servios de la API
-import { todasLasPersonas } from "../services/apiActions.js";
+import { todasLasPersonas, personaPorCedula } from "../services/apiActions.js";
 // componentes
 import TableRow from "./TableRow.jsx";
 
@@ -13,10 +13,10 @@ const Table = () => {
     
     // trayaendo la data
     useEffect(() => {
+        // obtener todas las personas
         const fetchData = async() => {
             try {
                 const data  = await todasLasPersonas();
-                console.log(data)
                 setPersonas(data)
             } catch (error) {
                 console.log(`Error al renderizar las personas: ${error}`)
@@ -39,8 +39,8 @@ const Table = () => {
             <tbody>
                 {
                     // renderizando la data
-                    personas?.map((persona, index) => (
-                        <TableRow key={index} persona={persona}/>
+                    personas?.map((persona) => (
+                        <TableRow key={persona.cedula} persona={persona}/>
                     ))
                 }
             </tbody>

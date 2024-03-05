@@ -12,6 +12,7 @@ const PublicRoutes = () => {
                 <Route path="/" element={<AgregarPersonas/>}/>
                 <Route path="/agregar-persona" element={<AgregarPersonas/>}/>
                 <Route path="/personas-registradas" element={<ListarPersonas/>}/>
+                <Route path="/personas-registradas/:cedula" element={<ListarPersonas/>}/>
             </Routes>
         </Suspense>
     );
