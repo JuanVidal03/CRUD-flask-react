@@ -16,6 +16,21 @@ lista_personas = []
 def mostrar_personas():
     return lista_personas
 
+# obtener persona por id
+@app.route('/personas-registradas/<cedula>')
+def persona_por_id(cedula):
+    try:
+        
+        # verificando que la person exista y si es asi retornarla
+        for persona in lista_personas:
+            if persona['cedula'] == cedula:
+                return persona, 202
+        else:
+            return Response(f'Persona con la cedeula: {cedula} no existe.', status=400 )
+        
+    except Exception as error:
+        return Response(f'Error al obtener la persona con la cedula: {cedula}', status=400)
+
 # crear personas
 @app.route('/agregar-persona', methods=['POST'])
 def crear_persona():
