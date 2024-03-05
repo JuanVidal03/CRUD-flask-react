@@ -63,7 +63,6 @@ def actualizar_persona(cedula):
     except Exception as error:
         return Response(f'Error al actualizar la persona: {error}', status=400)
 
-
 # eliminar persona
 @app.route('/persona/<cedula>', methods=['DELETE'])
 def eliminar_persona(cedula):
@@ -73,8 +72,9 @@ def eliminar_persona(cedula):
         for persona in lista_personas:
             if persona['cedula'] == cedula:
                 lista_personas.remove(persona)
-        
-        return Response(f'Persona con cedula: {cedula}, fue eliminada con exito!', status=202)
+                return Response(f'Persona con cedula: {cedula}, fue eliminada con exito!', status=202)
+        else:
+            return Response(f'Persona con cedula: {cedula}, no existe!', status=400)
     
     except Exception as error:
         return Response(f'Error al eliminar la persona: {error}', status=400)
