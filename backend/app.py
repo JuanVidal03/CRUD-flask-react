@@ -12,12 +12,12 @@ cors = CORS(app)
 lista_personas = []
 
 # mostar personas
-@app.route('/personas', methods=['GET'])
+@app.route('/personas-registradas', methods=['GET'])
 def mostrar_personas():
     return lista_personas
 
 # crear personas
-@app.route('/personas', methods=['POST'])
+@app.route('/agregar-persona', methods=['POST'])
 def crear_persona():
     # creando la persona
     try:
@@ -40,7 +40,7 @@ def crear_persona():
         return Response(f'Error al crear la persona: {error}', status=400)
 
 # actualizar persona
-@app.route('/persona/<cedula>', methods=['PUT'])
+@app.route('/personas-registradas/<cedula>', methods=['PUT'])
 def actualizar_persona(cedula):
     # creando la persona
     try:
@@ -64,7 +64,7 @@ def actualizar_persona(cedula):
         return Response(f'Error al actualizar la persona: {error}', status=400)
 
 # eliminar persona
-@app.route('/persona/<cedula>', methods=['DELETE'])
+@app.route('/personas-registradas/<cedula>', methods=['DELETE'])
 def eliminar_persona(cedula):
     try:
         
