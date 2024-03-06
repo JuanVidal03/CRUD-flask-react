@@ -10,7 +10,7 @@ export const todasLasPersonas = async() => {
         const data = await axios.get(`${url}/personas-registradas`);
         return data.data;
     } catch (error) {
-        console.log(`Error en el endpoint al traer todas las personas: ${error}`)
+        console.log({error})
     }
 }
 
@@ -38,8 +38,18 @@ export const personaPorCedula = async(cedula) => {
 export const eliminarPorCedula = async(cedula) => {
     try {
         const persona = await axios.delete(`${url}/personas-registradas/${cedula}`);
-        return persona
+        return persona;
     } catch (error) {
         console.log(`Error al buscar la persona con cedula: ${cedula}`);
+    }
+}
+
+// actualizar persona
+export const actualizarPersona = async(cedula, nuevaPersona) => {
+    try {
+        const data = await axios.put(`${url}/personas-registradas/${cedula}`, nuevaPersona);
+        return data.data;
+    } catch (error) {
+        console.log(`Error al actualizar persona con el id: ${cedula}, ${error}`);
     }
 }

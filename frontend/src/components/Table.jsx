@@ -23,7 +23,7 @@ const Table = () => {
             }
         }
         fetchData()
-    }, []);
+    }, [personas]);
 
     return (
         <table className="w-full bg-[#ffffff77] rounded-lg overflow-hidden backdrop-blur-sm max-h-[450px]">
